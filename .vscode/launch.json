@@ -6,18 +6,18 @@
 	"configurations": [
 		
 		{
-			"name": "phymer",
+			"name": "rhymer",
 			"request": "launch",
 			"type": "dart"
 		},
 		{
-			"name": "phymer (profile mode)",
+			"name": "rhymer (profile mode)",
 			"request": "launch",
 			"type": "dart",
 			"flutterMode": "profile"
 		},
 		{
-			"name": "phymer (release mode)",
+			"name": "rhymer (release mode)",
 			"request": "launch",
 			"type": "dart",
 			"flutterMode": "release"

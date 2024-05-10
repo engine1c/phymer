@@ -1,33 +1,31 @@
-name: phymer
+name: rhymer
 description: A new Flutter project.
 
-version: 1.0.0+6
+version: 1.0.0+7
 
 environment:
-  sdk: '>=3.1.0 <4.0.0'
-
+  sdk: ">=3.1.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-
-
   cupertino_icons: ^1.0.2
+  auto_route: ^8.1.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
   flutter_lints: ^2.0.0
+  auto_route_generator: ^8.0.0
+  build_runner: ^2.4.9
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

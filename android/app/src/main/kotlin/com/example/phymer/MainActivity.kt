@@ -1,4 +1,4 @@
-package com.example.phymer
+package com.example.rhymer
 
 import io.flutter.embedding.android.FlutterActivity
 
