@@ -13,8 +13,8 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        const SliverAppBar(
-          title: Text('Поиск'),
+        SliverAppBar(
+          title: const Text('Поиск'),
           //backgroundColor:  theme.primaryColor,
           pinned: true,
           snap: true,
@@ -22,8 +22,10 @@ class SearchScreen extends StatelessWidget {
           elevation: 0,
           surfaceTintColor: Colors.transparent,
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(70),
-            child: SearchButton(),
+            preferredSize: const Size.fromHeight(70),
+            child: SearchButton(
+              onTap: () => _showSearchBottomSheet(context),
+            ),
           ),
         ),
         const SliverToBoxAdapter(
@@ -59,6 +61,21 @@ class SearchScreen extends StatelessWidget {
                   sourseWord: '',
                 )),
       ],
+    );
+  }
+
+  Future<dynamic> _showSearchBottomSheet(
+    BuildContext context,
+  ) {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      context: context,
+      builder: (context) => const Padding(
+        padding: EdgeInsets.only(top: 60),
+        child: SearchRhimerBottomSheet(),
+      ),
     );
   }
 }
