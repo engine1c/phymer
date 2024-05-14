@@ -3,12 +3,12 @@ import 'package:json_annotation/json_annotation.dart';
 part 'rhymes.g.dart';
 
 @JsonSerializable()
-class Rhimes {
-  const Rhimes({
+class Rhymes {
+  const Rhymes({
     required this.words,
   });
 
-  factory Rhimes.fromJson(Map<String, dynamic> json) => _$RhimesFromJson(json);
+  factory Rhymes.fromJson(Map<String, dynamic> json) => _$RhimesFromJson(json);
 
   final List<String> words;
 

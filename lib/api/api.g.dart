@@ -8,8 +8,8 @@ part of 'api.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _RhimerApiClient implements RhimerApiClient {
-  _RhimerApiClient(
+class _RhymerApiClient implements RhymerApiClient {
+  _RhymerApiClient(
     this._dio, {
     this.baseUrl,
   });
@@ -19,21 +19,21 @@ class _RhimerApiClient implements RhimerApiClient {
   String? baseUrl;
 
   @override
-  Future<Rhimes> getRhimesList(String word) async {
+  Future<Rhymes> getRhimesList(String word) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'word': word};
+    //final queryParameters = <String, dynamic>{r'word': word};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Rhimes>(Options(
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Rhymes>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/rhimes/get',
-              queryParameters: queryParameters,
+              'hs/flutter_1c/rhymes/$word',
+              //queryParameters: queryParameters,
               data: _data,
             )
             .copyWith(
@@ -41,7 +41,7 @@ class _RhimerApiClient implements RhimerApiClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = Rhimes.fromJson(_result.data!);
+    final value = Rhymes.fromJson(_result.data!);
     return value;
   }
 

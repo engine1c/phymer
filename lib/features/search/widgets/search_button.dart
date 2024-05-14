@@ -4,9 +4,11 @@ class SearchButton extends StatelessWidget {
   const SearchButton({
     super.key,
     required this.onTap,
+    required this.controller,
   });
 
   final VoidCallback onTap;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +28,19 @@ class SearchButton extends StatelessWidget {
             const SizedBox(
               width: 8,
             ),
-            Text(
-              'Поиск рифм......',
-              style: TextStyle(
-                  fontSize: 18,
-                  color: theme.hintColor.withOpacity(0.4),
-                  fontWeight: FontWeight.w700),
-            ),
+            AnimatedBuilder(
+                animation: controller,
+                builder: (context, _) {
+                  return Text(
+                    controller.text.isEmpty
+                        ? 'Поиск рифм......'
+                        : controller.text,
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: theme.hintColor.withOpacity(0.4),
+                        fontWeight: FontWeight.w700),
+                  );
+                }),
           ],
         ),
       ),

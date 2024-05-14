@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:rhymer/ui/widgets/widgets.dart';
 
-class SearchRhimerBottomSheet extends StatelessWidget {
-  const SearchRhimerBottomSheet({
+class SearchRhymesBottomSheet extends StatelessWidget {
+  const SearchRhymesBottomSheet({
     super.key,
+    required this.controller,
   });
+
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +25,7 @@ class SearchRhimerBottomSheet extends StatelessWidget {
                           color: theme.hintColor.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(12)),
                       child: TextField(
+                        controller: controller,
                         decoration: InputDecoration(
                             hintText: 'Слово для поиска......',
                             hintStyle: TextStyle(
@@ -37,15 +41,19 @@ class SearchRhimerBottomSheet extends StatelessWidget {
               const SizedBox(
                 width: 8,
               ),
-              Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
+              GestureDetector(
+                onTap: () => _onTapSearch(context),
+                child: Container(
+                  height: 48,
+                  width: 48,
+                  decoration: BoxDecoration(
                     color: theme.primaryColor,
-                    borderRadius: BorderRadius.circular(12)),
-                child: const Icon(
-                  Icons.search,
-                  color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],
@@ -66,5 +74,9 @@ class SearchRhimerBottomSheet extends StatelessWidget {
                 itemCount: 15))
       ],
     ));
+  }
+
+  void _onTapSearch(BuildContext context) {
+    Navigator.of(context).pop(controller.text);
   }
 }

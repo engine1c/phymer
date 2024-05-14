@@ -8,19 +8,19 @@ part 'api.g.dart';
 //flutter packages pub run build_runner build --delete-conflicting-outputs
 
 @RestApi(baseUrl: '')
-abstract class RhimerApiClient {
-  factory RhimerApiClient(Dio dio, {String baseUrl}) = _RhimerApiClient;
+abstract class RhymerApiClient {
+  factory RhymerApiClient(Dio dio, {String baseUrl}) = _RhymerApiClient;
 
-  factory RhimerApiClient.create({String? apiURL}) {
+  factory RhymerApiClient.create({String? apiURL}) {
     final dio = Dio();
     if (apiURL != null) {
-      return RhimerApiClient(dio, baseUrl: apiURL);
+      return RhymerApiClient(dio, baseUrl: apiURL);
     }
-    return RhimerApiClient(
+    return RhymerApiClient(
       dio,
     );
   }
 
-  @GET('/rhimes/get')
-  Future<Rhimes> getRhimesList(@Query('word') String word);
+  @GET('{word}')
+  Future<Rhymes> getRhimesList(@Path('word') String word);
 }

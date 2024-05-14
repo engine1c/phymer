@@ -6,10 +6,10 @@ part of 'rhymes.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Rhimes _$RhimesFromJson(Map<String, dynamic> json) => Rhimes(
+Rhymes _$RhimesFromJson(Map<String, dynamic> json) => Rhymes(
       words: (json['words'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
-Map<String, dynamic> _$RhimesToJson(Rhimes instance) => <String, dynamic>{
+Map<String, dynamic> _$RhimesToJson(Rhymes instance) => <String, dynamic>{
       'words': instance.words,
     };

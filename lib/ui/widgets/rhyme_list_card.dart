@@ -6,12 +6,14 @@ class RhymeListCard extends StatelessWidget {
     super.key,
     this.isFavorite = false,
     required this.rhyme,
-    required this.sourseWord,
+    this.sourceWord,
+    required this.onTap,
   });
 
-  final bool isFavorite;
   final String rhyme;
-  final String? sourseWord;
+  final String? sourceWord;
+  final bool isFavorite;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -22,35 +24,39 @@ class RhymeListCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(children: [
-            if (sourseWord != null) ...[
+          Row(
+            children: [
+              if (sourceWord != null) ...[
+                Text(
+                  sourceWord!,
+                  style: theme.textTheme.bodyLarge,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: Icon(
+                    Icons.arrow_forward_ios,
+                    size: 18,
+                    color: theme.hintColor.withOpacity(0.4),
+                  ),
+                ),
+              ],
               Text(
-                sourseWord!,
-                style: theme.textTheme.bodyLarge,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: Icon(
-                  Icons.arrow_forward_ios,
-                  size: 18,
-                  color: theme.hintColor.withOpacity(0.4),
+                rhyme,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],
-            Text(
-              rhyme,
-              style: theme.textTheme.bodyLarge
-                  ?.copyWith(fontWeight: FontWeight.w600),
-            ),
-          ]),
+          ),
           IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.favorite,
-                color: isFavorite
-                    ? theme.primaryColor
-                    : theme.hintColor.withOpacity(0.2),
-              ))
+            onPressed: onTap,
+            icon: Icon(
+              Icons.favorite,
+              color: isFavorite
+                  ? theme.primaryColor
+                  : theme.hintColor.withOpacity(0.2),
+            ),
+          )
         ],
       ),
     );
