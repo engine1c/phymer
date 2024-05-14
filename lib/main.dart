@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:realm/realm.dart';
 import 'package:rhymer/api/api.dart';
+import 'package:rhymer/features/history/bloc/history_rhymes_bloc.dart';
 import 'package:rhymer/features/search/bloc/rhymer_list_bloc.dart';
+import 'package:rhymer/repositories/history/history.dart';
 import 'package:rhymer/router/router.dart';
 
 import 'ui/ui.dart';
@@ -11,18 +14,20 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: ".env");
-  final apiURL = dotenv.env['API_URL'];
-  final client = RhymerApiClient.create(apiURL: apiURL);
+  //final client = RhymerApiClient.create(apiURL: dotenv.env['API_URL']);
+  final config = Configuration.local([HistoryRhymes.schema]);
 
-  runApp(const RhymerApp());
+  final realm = Realm(config);
+  runApp(RhymerApp(realm: realm));
 }
 
 class RhymerApp extends StatefulWidget {
   const RhymerApp({
     super.key,
+    required this.realm,
   });
 
-  //final RhymerApiClient apiClient;
+  final Realm realm;
 
   @override
   State<RhymerApp> createState() => _RhymerAppState();
@@ -41,9 +46,25 @@ class _RhymerAppState extends State<RhymerApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RhymesListBloc(
-          apiClient: RhymerApiClient.create(apiURL: dotenv.env['API_URL'])),
+    final historyRepository = HistoryRepository(realm: widget.realm);
+    // historyRepository.getRhymesList().then(
+    //       (value) => print(value),
+    //     );
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => RhymesListBloc(
+            apiClient: RhymerApiClient.create(apiURL: dotenv.env['API_URL']),
+            historyRepository: historyRepository,
+          ),
+        ),
+        BlocProvider(
+          create: (context) => HistoryRhymesBloc(
+            historyRepository: historyRepository,
+          ),
+        ),
+      ],
       child: MaterialApp.router(
         title: 'Rhymer',
         theme: themeData,

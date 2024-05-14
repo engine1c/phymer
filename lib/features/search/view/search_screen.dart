@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rhymer/features/history/bloc/history_rhymes_bloc.dart';
 import 'package:rhymer/features/search/bloc/rhymer_list_bloc.dart';
 import 'package:rhymer/features/search/widgets/rhymes_list_initial_baner.dart';
 import 'package:rhymer/features/search/widgets/widgets.dart';
@@ -23,13 +24,11 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final _searchController = TextEditingController();
 
-  // @override
-  // void initState() {
-  //   //_rhymesListBloc.add(const SearchRhymes(query: 'глаз'));
-  //   BlocProvider.of<RhymesListBloc>(context)
-  //       .add(const SearchRhymes(query: 'морковь'));
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    BlocProvider.of<HistoryRhymesBloc>(context).add(LoadHistoryRhymes());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,20 +56,28 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         ),
         SliverToBoxAdapter(
-          child: SizedBox(
-            height: 100,
-            child: ListView.separated(
-              padding: const EdgeInsets.only(left: 16),
-              scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              separatorBuilder: (context, index) => const SizedBox(
-                width: 16,
-              ),
-              itemBuilder: (context, index) {
-                final rhymes = List.generate(8, (index) => 'Рифма$index');
-                return RhymeHistoryCard(rhymes: rhymes);
-              },
-            ),
+          child: BlocBuilder<HistoryRhymesBloc, HistoryRhymesState>(
+            builder: (context, state) {
+              if (state is! HistoryRhymesLoaded) return const SizedBox();
+              return SizedBox(
+                height: 100,
+                child: ListView.separated(
+                  padding: const EdgeInsets.only(left: 16),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: state.rhymes.length,
+                  separatorBuilder: (context, index) => const SizedBox(
+                    width: 16,
+                  ),
+                  itemBuilder: (context, index) {
+                    //final rhymes = List.generate(8, (index) => 'Рифма$index');
+                    return RhymeHistoryCard(
+                      word: state.rhymes[index].word,
+                      rhymes: state.rhymes[index].words,
+                    );
+                  },
+                ),
+              );
+            },
           ),
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 16)),
