@@ -81,48 +81,48 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 16)),
-        BlocBuilder<RhymesListBloc, RhymesListState>(
-            //listener: _handleRhymesListState,
+        BlocConsumer<RhymesListBloc, RhymesListState>(
+            listener: _handleRhymesListState,
             builder: (context, state) {
-          if (state is RhymesListLoaded) {
-            final rhymesModel = state.rhymes;
-            final rhymes = rhymesModel.words;
-            return SliverList.builder(
-              itemCount: rhymes.length,
-              itemBuilder: (context, index) {
-                final rhyme = rhymes[index];
-                return RhymeListCard(
-                    rhyme: rhyme,
-                    //isFavorite: state.isFavorite(rhyme),
-                    onTap: () {}
-                    //=> _toggleFavorite(context, rhymesModel, state, rhyme),
-                    );
-              },
-            );
-          }
-          if (state is RhymesListInitial) {
-            return const SliverFillRemaining(
-              child: RhymesListInitialBanner(),
-            );
-          }
-          return const SliverFillRemaining(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        }),
+              if (state is RhymesListLoaded) {
+                final rhymesModel = state.rhymes;
+                final rhymes = rhymesModel.words;
+                return SliverList.builder(
+                  itemCount: rhymes.length,
+                  itemBuilder: (context, index) {
+                    final rhyme = rhymes[index];
+                    return RhymeListCard(
+                        rhyme: rhyme,
+                        //isFavorite: state.isFavorite(rhyme),
+                        onTap: () => {}
+                        //_toggleFavorite(context, rhymesModel, state, rhyme),
+                        );
+                  },
+                );
+              }
+              if (state is RhymesListInitial) {
+                return const SliverFillRemaining(
+                  child: RhymesListInitialBanner(),
+                );
+              }
+              return const SliverFillRemaining(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }),
       ],
     );
   }
 
-  // void _handleRhymesListState(
-  //   BuildContext context,
-  //   RhymesListState state,
-  // ) {
-  //   if (state is RhymesListLoaded) {
-  //     BlocProvider.of<HistoryRhymesBloc>(context).add(LoadHistoryRhymes());
-  //   }
-  // }
+  void _handleRhymesListState(
+    BuildContext context,
+    RhymesListState state,
+  ) {
+    if (state is RhymesListLoaded) {
+      BlocProvider.of<HistoryRhymesBloc>(context).add(LoadHistoryRhymes());
+    }
+  }
 
   Future<void> _showSearchBottomSheet(BuildContext context) async {
     final bloc = BlocProvider.of<RhymesListBloc>(context);
