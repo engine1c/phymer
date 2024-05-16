@@ -11,10 +11,10 @@ import 'package:rhymer/api/models/models.dart';
 abstract class RhymerApiClient {
   factory RhymerApiClient(Dio dio, {String baseUrl}) = _RhymesApiClient;
 
-  factory RhymerApiClient.create({String? apiURL}) {
+  factory RhymerApiClient.create({String? apiUrl}) {
     final dio = Dio();
-    if (apiURL != null) {
-      return RhymerApiClient(dio, baseUrl: apiURL);
+    if (apiUrl != null) {
+      return RhymerApiClient(dio, baseUrl: apiUrl);
     }
     return RhymerApiClient(
       dio,
@@ -22,7 +22,7 @@ abstract class RhymerApiClient {
   }
 
   @GET('{word}')
-  Future<Rhymes> getRhimesList(@Path('word') String word);
+  Future<Rhymes> getRhymesList(@Path('word') String word);
 }
 
 class _RhymesApiClient implements RhymerApiClient {
@@ -36,7 +36,7 @@ class _RhymesApiClient implements RhymerApiClient {
   String? baseUrl;
 
   @override
-  Future<Rhymes> getRhimesList(String word) async {
+  Future<Rhymes> getRhymesList(String word) async {
     final extra = <String, dynamic>{};
     //final queryParameters = <String, dynamic>{r'word': word};
     final headers = <String, dynamic>{};

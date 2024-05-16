@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rhymer/api/models/rhymes.dart';
+import 'package:rhymer/features/favorites/bloc/favorite_rhymes_bloc.dart';
 import 'package:rhymer/features/history/bloc/history_rhymes_bloc.dart';
 import 'package:rhymer/features/search/bloc/rhymer_list_bloc.dart';
 import 'package:rhymer/features/search/widgets/rhymes_list_initial_baner.dart';
@@ -92,11 +96,11 @@ class _SearchScreenState extends State<SearchScreen> {
                   itemBuilder: (context, index) {
                     final rhyme = rhymes[index];
                     return RhymeListCard(
-                        rhyme: rhyme,
-                        //isFavorite: state.isFavorite(rhyme),
-                        onTap: () => {}
-                        //_toggleFavorite(context, rhymesModel, state, rhyme),
-                        );
+                      rhyme: rhyme,
+                      isFavorite: state.isFavorite(rhyme),
+                      onTap: () =>
+                          _toggleFavorite(context, rhymesModel, rhyme, state),
+                    );
                   },
                 );
               }
@@ -113,6 +117,22 @@ class _SearchScreenState extends State<SearchScreen> {
             }),
       ],
     );
+  }
+
+  Future<void> _toggleFavorite(BuildContext context, Rhymes rhymesModel,
+      String carrnetRhyme, RhymesListLoaded state) async {
+    final rhymesListBloc = BlocProvider.of<RhymesListBloc>(context);
+    final favoriteRhymesBloc = BlocProvider.of<FavoriteRhymesBloc>(context);
+    final comleter = Completer();
+
+    rhymesListBloc.add(ToggleFavoriteRhymes(
+      rhymes: rhymesModel,
+      query: state.query,
+      favoriteWord: carrnetRhyme,
+      comleter: comleter,
+    ));
+    await comleter.future;
+    favoriteRhymesBloc.add(LoadFavoriteRhymes());
   }
 
   void _handleRhymesListState(

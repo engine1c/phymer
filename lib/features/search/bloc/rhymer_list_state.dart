@@ -5,6 +5,8 @@ sealed class RhymesListState extends Equatable {
 
   @override
   List<Object> get props => [];
+
+  //RhymesListState copyWith({required List<FavoriteRhymes> favoriteRhymes}) {}
 }
 
 final class RhymesListInitial extends RhymesListState {}
@@ -14,36 +16,33 @@ final class RhymesListLoading extends RhymesListState {}
 final class RhymesListLoaded extends RhymesListState {
   const RhymesListLoaded({
     required this.rhymes,
-    //required this.query,
-    //required List<FavoriteRhymes> favoriteRhymes,
-  }); //: _favoriteRhymes = favoriteRhymes;
+    required this.query,
+    required List<FavoriteRhymes> favoriteRhymes,
+  }) : _favoriteRhymes = favoriteRhymes;
 
-  //final String query;
+  final String query;
   final Rhymes rhymes;
-  //final List<FavoriteRhymes> _favoriteRhymes;
+  final List<FavoriteRhymes> _favoriteRhymes;
 
-  // bool isFavorite(String rhyme) {
-  //   return _favoriteRhymes
-  //       .where((e) => e.favoriteWord == rhyme && e.queryWord == query)
-  //       .isNotEmpty;
-  // }
+  bool isFavorite(String rhyme) {
+    return _favoriteRhymes
+        .where((e) => e.favoriteWord == rhyme && e.queryWord == query)
+        .isNotEmpty;
+  }
 
   @override
-  List<Object> get props => super.props
-    ..addAll([
-      rhymes,
-      //query,
-    ]); // _favoriteRhymes]);
+  List<Object> get props =>
+      super.props..addAll([rhymes, query, _favoriteRhymes]);
 
   RhymesListLoaded copyWith({
     String? query,
     Rhymes? rhymes,
-    //List<FavoriteRhymes>? favoriteRhymes,
+    List<FavoriteRhymes>? favoriteRhymes,
   }) {
     return RhymesListLoaded(
-      //query: query ?? this.query,
+      query: query ?? this.query,
       rhymes: rhymes ?? this.rhymes,
-      //favoriteRhymes: favoriteRhymes ?? _favoriteRhymes,
+      favoriteRhymes: favoriteRhymes ?? _favoriteRhymes,
     );
   }
 }
