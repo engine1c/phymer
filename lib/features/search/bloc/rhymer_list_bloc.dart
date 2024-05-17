@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,7 +53,10 @@ class RhymesListBloc extends Bloc<RhymesListEvent, RhymesListState> {
   ) async {
     try {
       final prevState = state;
-      if (prevState is! RhymesListLoaded) return;
+      if (prevState is! RhymesListLoaded) {
+        log('state is not RhymesListLoaded');
+        return;
+      }
 
       await _favoritesRepository.createOrDeleteRhymes(
           event.rhymes.toFavorite(event.query, event.favoriteWord));

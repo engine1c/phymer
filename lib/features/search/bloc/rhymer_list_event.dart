@@ -21,7 +21,6 @@ class ToggleFavoriteRhymes extends RhymesListEvent {
     required this.query,
     required this.favoriteWord,
     this.completer,
-    required Completer comleter,
   });
 
   final Rhymes rhymes;

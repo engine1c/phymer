@@ -20,9 +20,9 @@ final class FavoriteRhymesLoaded extends FavoriteRhymesState {
 
   @override
   List<Object> get props => super.props
-    ..addAll([
+    ..add(
       rhymes,
-    ]); //
+    ); //
 }
 
 final class FavoriteRhymesFailure extends FavoriteRhymesState {

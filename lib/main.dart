@@ -51,9 +51,6 @@ class _RhymerAppState extends State<RhymerApp> {
   Widget build(BuildContext context) {
     final historyRepository = HistoryRepository(realm: widget.realm);
     final favoritesRepository = FavoritesRepository(realm: widget.realm);
-    // historyRepository.getRhymesList().then(
-    //       (value) => print(value),
-    //     );
 
     return MultiBlocProvider(
       providers: [

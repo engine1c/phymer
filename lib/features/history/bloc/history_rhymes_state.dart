@@ -20,9 +20,9 @@ final class HistoryRhymesLoaded extends HistoryRhymesState {
 
   @override
   List<Object> get props => super.props
-    ..addAll([
+    ..add(
       rhymes,
-    ]); //
+    ); //
 }
 
 final class HistoryRhymesFailure extends HistoryRhymesState {
