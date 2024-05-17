@@ -2,7 +2,7 @@ name: rhymer
 description: my testing Flutter project.
 publish_to: "none"
 
-version: 1.0.0+12
+version: 1.0.0+13
 
 environment:
   sdk: ">=3.1.0 <4.0.0"
@@ -21,6 +21,7 @@ dependencies:
   equatable: ^2.0.5
   realm: ^1.9.0
   uuid: ^4.4.0
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
