@@ -1,1 +1,1 @@
-mklink /j "d:\flutter_work\frezyx\phymer\.fvm\flutter_sdk" "c:\Users\user\fvm\versions\3.19.5\"
+mklink /j "d:\flutter_work\rhymer\.fvm\flutter_sdk" "c:\Users\user\fvm\versions\3.22.0\"

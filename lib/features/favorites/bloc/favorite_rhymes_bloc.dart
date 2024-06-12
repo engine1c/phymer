@@ -27,6 +27,11 @@ class FavoriteRhymesBloc
       emit(FavoriteRhymesLoading());
       final rhymes = await _favoritesRepository.getRhymesList();
       emit(FavoriteRhymesLoaded(rhymes: rhymes));
+
+      // emit(RhymesListLoading());
+      // final rhymes = await _apiClient.getRhymesList(event.query);
+      // emit(RhymesListLoaded(
+      //     rhymes: rhymes, query: event.query, favoriteRhymes: favoriteRhymes));
     } catch (e) {
       emit(FavoriteRhymesFailure(e));
     }

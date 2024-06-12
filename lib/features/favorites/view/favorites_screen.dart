@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rhymer/features/favorites/bloc/favorite_rhymes_bloc.dart';
+import 'package:rhymer/features/search/bloc/rhymer_list_bloc.dart';
 import 'package:rhymer/repositories/favorites/model/model.dart';
 import 'package:rhymer/ui/widgets/widgets.dart';
 
@@ -71,5 +72,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   void _toggleFavoriteRhyme(BuildContext context, FavoriteRhymes rhyme) {
     BlocProvider.of<FavoriteRhymesBloc>(context)
         .add(ToggleFavoriteRhyme(rhyme));
+    BlocProvider.of<RhymesListBloc>(context).add(UpdateFavorites());
   }
 }

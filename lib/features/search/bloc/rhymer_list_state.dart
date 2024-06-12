@@ -13,6 +13,8 @@ final class RhymesListInitial extends RhymesListState {}
 
 final class RhymesListLoading extends RhymesListState {}
 
+//class UpdateFavorites extends RhymesListEvent {}
+
 final class RhymesListLoaded extends RhymesListState {
   const RhymesListLoaded({
     required this.rhymes,

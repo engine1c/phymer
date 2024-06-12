@@ -21,12 +21,24 @@ class RhymesListBloc extends Bloc<RhymesListEvent, RhymesListState> {
         _apiClient = apiClient,
         super(RhymesListInitial()) {
     on<SearchRhymes>(_onSearch);
-    on<ToggleFavoriteRhymes>(_onToggleFavorite);
+    on<ToggleFavoriteSearch>(_onToggleFavorite);
+    on<UpdateFavorites>(_onUpdateFavorites);
   }
 
   final RhymerApiClient _apiClient;
   final HistoryRepositoryInterface _historyRepository;
   final FavoritesRepositoryInterface _favoritesRepository;
+
+  Future<void> _onUpdateFavorites(
+    UpdateFavorites event,
+    Emitter<RhymesListState> emit,
+  ) async {
+    if (state is RhymesListLoaded) {
+      final favoriteRhymes = await _favoritesRepository.getRhymesList();
+      emit(
+          (state as RhymesListLoaded).copyWith(favoriteRhymes: favoriteRhymes));
+    }
+  }
 
   Future<void> _onSearch(
     SearchRhymes event,
@@ -48,7 +60,7 @@ class RhymesListBloc extends Bloc<RhymesListEvent, RhymesListState> {
   }
 
   Future<void> _onToggleFavorite(
-    ToggleFavoriteRhymes event,
+    ToggleFavoriteSearch event,
     Emitter<RhymesListState> emit,
   ) async {
     try {

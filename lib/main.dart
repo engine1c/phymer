@@ -45,14 +45,6 @@ class RhymerApp extends StatefulWidget {
 class _RhymerAppState extends State<RhymerApp> {
   final _router = AppRouter();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // widget.apiClient.getRhimesList('морковь').then((value) {
-  //   //   print(value);
-  //   // });
-  // }
-
   @override
   Widget build(BuildContext context) {
     final historyRepository = HistoryRepository(realm: widget.realm);
@@ -85,6 +77,7 @@ class _RhymerAppState extends State<RhymerApp> {
       child: BlocBuilder<ThemCubit, ThemState>(
         builder: (context, state) {
           return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
             title: 'РифмоГенератор',
             theme: state.isDark ? darkTheme : lightTheme,
             routerConfig: _router.config(),
